@@ -1,0 +1,120 @@
+CREATE TABLE roles (
+    idrol NUMBER PRIMARY KEY,
+    rol VARCHAR(50)
+);
+
+CREATE TABLE permisos (
+    idpermiso NUMBER PRIMARY KEY,
+    nombre VARCHAR2(100) UNIQUE NOT NULL,
+    descripcion VARCHAR2(255)
+);
+
+CREATE TABLE rol_permiso (
+    idrol NUMBER,
+    idpermiso NUMBER,
+    PRIMARY KEY (idrol, idpermiso),
+    FOREIGN KEY (idrol) REFERENCES roles(idrol),
+    FOREIGN KEY (idpermiso) REFERENCES permisos(idpermiso)
+);
+
+CREATE TABLE cuentas (
+    idcuenta NUMBER PRIMARY KEY,
+    nombre VARCHAR(100),
+    usuario VARCHAR(100) UNIQUE NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    idrol NUMBER,
+    traducciones_guardadas NUMBER,
+    sugerencias_realizadas NUMBER,
+    sanciones_recibidas NUMBER,
+    traducciones_realizadas NUMBER,
+    lengua_materna NUMBER,
+    FOREIGN KEY (IDROL) REFERENCES roles(IDROL),
+    FOREIGN KEY (lengua_materna) REFERENCES lenguajes(idlenguaje)
+);
+
+
+CREATE TABLE lenguajes (
+    idlenguaje NUMBER PRIMARY KEY,
+    lenguaje VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE staff (
+    idstaff NUMBER PRIMARY KEY,
+    idcuenta NUMBER,
+    idrol NUMBER,
+    sugerencias_aprobadas NUMBER DEFAULT 0,
+    sugerencias_rechazadas NUMBER DEFAULT 0,
+    sanciones_emitidas NUMBER DEFAULT 0,
+    fecha_inicio DATE,
+	fecha_fin DATE,
+    estado CHAR(1) CHECK (estado_actividad IN ('A', 'I')),
+	FOREIGN KEY (idcuenta) REFERENCES cuentas(idcuenta),
+	FOREIGN KEY (idrol) REFERENCES roles(idrol)
+);
+
+CREATE TABLE sanciones (
+    id_sancion NUMBER PRIMARY KEY,
+    usuario_sancionado NUMBER,
+    staff_sancionador NUMBER,
+    roles_sancionador VARCHAR2(255),
+    motivo VARCHAR2(1000),
+    fecha_sancion DATE,
+    duracion_sancion INTERVAL DAY TO SECOND,
+    estado_sancion VARCHAR2(50),
+    tipo_sancion VARCHAR2(100),
+    descripcion_adicional VARCHAR2(2000),
+    FOREIGN KEY (usuario_sancionado) REFERENCES cuentas(idcuenta),
+    FOREIGN KEY (staff_sancionador) REFERENCES staff(idstaff)
+);
+
+CREATE TABLE rol_permiso (
+    idrol NUMBER,
+    idpermiso NUMBER,
+    PRIMARY KEY (idrol, idpermiso),
+    FOREIGN KEY (idrol) REFERENCES roles(idrol),
+    FOREIGN KEY (idpermiso) REFERENCES permisos(idpermiso)
+);
+
+CREATE TABLE sesiones (
+    idsesion NUMBER PRIMARY KEY,
+    usuario VARCHAR(50),
+    estado CHAR(1) DEFAULT 'I',
+    FOREIGN KEY (usuario) REFERENCES cuentas(usuario)
+);
+
+CREATE TABLE  guardados_ (
+	idguardado NUMBER PRIMARY KEY,
+	texto_original VARCHAR2(255), 
+	texto_traducido VARCHAR2(255),
+	idioma_original VARCHAR2(50),
+	idioma_traduccion VARCHAR2(50)
+);
+
+CREATE TABLE  historial_ (
+	idtraduccion NUMBER PRIMARY KEY,
+	texto_original VARCHAR2(255),
+	texto_traducido VARCHAR2(255),
+	idioma_origen VARCHAR2(50),
+	idioma_traduccion VARCHAR2(50),
+	fecha TIMESTAMP (6),
+);
+
+CREATE TABLE  palabras (
+	idpalabra NUMBER PRIMARY KEY,
+	palabraespanol VARCHAR2(255),
+	palabraingles VARCHAR2(255),
+	palabraitaliano VARCHAR2(255)
+);
+
+CREATE TABLE  sugerencias (
+	idsugerencia NUMBER PRIMARY KEY,
+	idusuario NUMBER,
+	palabra_original VARCHAR2(255),
+	palabra_traducida VARCHAR2(255),
+	sugerencia VARCHAR2(255),
+	idioma_original VARCHAR2(50),
+	idioma_traduccion VARCHAR2(50),
+	fecha TIMESTAMP (6),
+	estatus CHAR(1) DEFAULT 'P',
+	FOREIGN KEY (IDUSUARIO) REFERENCES cuentas(idcuenta)
+);

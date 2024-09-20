@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Traductor">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/Traductor.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

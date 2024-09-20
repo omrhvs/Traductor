@@ -1,0 +1,62 @@
+Se debe actualizar el rol para insertar en staff 
+Accionar boton login/registro al dar al enter
+
+TODO: Sanciones y gestion de roles, prohibir cambios de usuario
+
+codigos de error, para evitar guardar errores en favoritos 
+
+evitar sugerencias ya existentes (listo)
+
+Limpiar campos en sugerencias y mandar al inicio (listo)
+
+Mensajes de error login (listo)
+
+en el apartado perfil se obtiene nombre y usuario con la fk de idcuenta en cuentas (listo)
+
+Monitorear sugerencias, al seleccionar una, llevar a un menu donde se busquen mas sugerencias similares, si se tiene registro de una ya realizada, como herramienta
+para decidir si dicha sugerencia en concreto se ha hecho antes o no
+
+Mover el nombre de cuentas a perfiles (listo)
+
+Añadir traducciones guardadas en perfiles (listo)
+
+583
+
+Si esta guardada la sesion activa en la base de datos, entonces validar ese dato primero antes de abrir cualquier ventana (listo)
+
+Limpiar colas de mensajes al salir 
+
+Jalar en combobox la lista de lenguajes de la tabla lenguajes (listo)
+
+Archivos de user settings, guardar y al abrir la app en una ventana de carga obtener esos datos para configurar las ventanas posteriores (listo 50%, necesito agregar otras preferencias como temas)
+
+Almacenamiento en una única tabla:
+
+Todo: Si al querer enviar una sugerencia revisar si ya existe una sugerencia a dicha palabra input y en caso de que este pendiente permitir enviar, si esta en rechazada comprobar cual es la sugerencia y si esta en aprobada no proceder y notificar
+
+Ventajas:
+
+Simplicidad: Con una sola tabla, es más fácil manejar las operaciones de inserción, actualización, eliminación y consulta de datos.
+Rendimiento: Puede haber un ligero aumento en el rendimiento al acceder a los datos, ya que no es necesario unir varias tablas para recuperar la información.
+Menos complejidad de consulta: Las consultas SQL pueden ser más simples y directas al trabajar con una sola tabla.
+
+Desventajas:
+
+Redundancia de datos: Puedes terminar almacenando datos repetidos, especialmente si tienes múltiples usuarios con el mismo conjunto de datos adicionales.
+Dificultad para extender: Si necesitas agregar nuevos campos específicos del perfil en el futuro, puede requerir cambios en la estructura de la tabla existente.
+Menos modularidad: Puede ser más difícil de mantener y escalar si la tabla contiene una gran cantidad de campos que no están directamente relacionados con las credenciales de inicio de sesión.
+
+
+Almacenamiento en tablas separadas:
+
+Ventajas:
+
+Normalización de datos: Permite una mejor organización y reduce la redundancia de datos al mantener la información específica del perfil en su propia tabla.
+Escalabilidad: Es más fácil agregar nuevos campos específicos del perfil en el futuro sin afectar la estructura de la tabla de cuentas.
+Más modularidad: Cada tabla tiene su propia responsabilidad, lo que facilita la comprensión y el mantenimiento del esquema de la base de datos.
+
+Desventajas:
+
+Complejidad de consulta: Puede requerir operaciones de unión (JOIN) más frecuentes para recuperar la información completa del usuario y del perfil, lo que podría afectar ligeramente el rendimiento.
+Más operaciones de escritura: Al trabajar con múltiples tablas, puede requerir más operaciones de escritura para realizar inserciones y actualizaciones de datos en ambos lugares.
+Potencial de integridad de datos: Debes asegurarte de mantener la integridad referencial entre las tablas de cuentas y perfiles para evitar inconsistencias de datos.

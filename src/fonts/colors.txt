@@ -1,0 +1,5 @@
+Color de fondo: [240,238,234]
+
+Color naranja: [244,107,82]
+
+Color Oscuro: [82,81,81]

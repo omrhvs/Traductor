@@ -1,0 +1,25 @@
+CREATE TABLE roles (
+    idrol NUMBER PRIMARY KEY,
+    rol VARCHAR(50)
+);
+
+
+USUARIO
+TRADUCTOR
+MODERADOR
+ADMIN
+
+reportes?
+
+CREATE TABLE permisos (
+    idpermiso NUMBER PRIMARY KEY,
+    nombre VARCHAR2(100) UNIQUE NOT NULL,
+    descripcion VARCHAR2(255)
+);
+
+Sugerir
+Aprobar Sugerencia
+Rechazar Sugerencia
+Eliminar Sugerencia
+Vaciar Sugerencias
+Sancionar
